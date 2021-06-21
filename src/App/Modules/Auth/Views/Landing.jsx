@@ -21,10 +21,11 @@ import { Login } from "../Store/ActionCreators/ActionCreators";
 // logic import
 import useLogin from "../Hooks/useLoginLogic";
 // history import
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 
 // spinner hook import
 import useSpinner from "App/Common/Spinner/Spinner";
+
 
 // material ui styling
 const useStyles = makeStyles((theme) => ({
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // parent fn
-function Landing({ login, loading, passError, mailError, regMail }) {
+function Landing({ login, loading, passError, mailError, tkn }) {
 	const classes = useStyles();
 
 	// custom hook
@@ -86,11 +87,19 @@ function Landing({ login, loading, passError, mailError, regMail }) {
 	}, []);
 
 	// submit handler
-	// submit handler
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		login(mail, password);
 	};
+
+	let history = useHistory();
+
+	React.useEffect(() => {
+		tkn !== undefined && tkn !== null ?
+		 history.push("/voting") 
+		 : null;
+	}, [handleSubmit]);
+
 	return (
 		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
@@ -181,6 +190,7 @@ const mapStateToProps = (state) => {
 		loading: state?.User?.loading,
 		passError: state.User?.errmess?.password,
 		mailError: state.User?.errmess?.email,
+		tkn: state.User?.tkn,
 	};
 };
 

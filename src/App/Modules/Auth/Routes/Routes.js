@@ -1,5 +1,6 @@
-import Register from '../Views/Register';
-import Landing from '../Views/Landing';
+import Register from "../Views/Register";
+import Landing from "../Views/Landing";
+import Voting from "../../Voting/Container/Voting"
 
 const authRoutes = [
   {
@@ -14,6 +15,12 @@ const authRoutes = [
     component: Register,
     layout: "/auth",
   },
+  {
+    path: "",
+    name: "Voting",
+    component: Voting,
+    layout: "/voting",
+  }
 ];
 
 export default authRoutes;

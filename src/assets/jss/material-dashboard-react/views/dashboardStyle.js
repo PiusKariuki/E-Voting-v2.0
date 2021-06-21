@@ -77,6 +77,17 @@ const dashboardStyle = {
       lineHeight: "1",
     },
   },
+  spinner : {
+    position: "absolute",
+    zIndex: "20",
+    color: "#4000ff",
+    left: "50%",
+  },
+  election_details: {
+    justifyContent: "space-around",
+    alignItems: "center",
+    maxHeight: "400px"
+  },
 };
 
 export default dashboardStyle;
