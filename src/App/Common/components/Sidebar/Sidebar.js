@@ -40,7 +40,8 @@ export default function Sidebar(props) {
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path),
         });
-
+        // conditional to force user journey 
+      if(prop.onmenu){
         return (
           <NavLink
             to={prop.layout + prop.path}
@@ -64,6 +65,7 @@ export default function Sidebar(props) {
             </ListItem>
           </NavLink>
         );
+              }
       })}
     </List>
   );

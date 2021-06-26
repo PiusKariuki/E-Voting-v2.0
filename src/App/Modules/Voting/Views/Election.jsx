@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -24,7 +25,7 @@ import useSpinner from "../../../Common/Spinner/Spinner";
 
 const useStyles = makeStyles(styles);
 
-const Election = ({ tkn }) => {
+const Election = ({ tkn,history }) => {
 	const classes = useStyles();
 	const [election, fetchElection, load, text] = useFetch();
 
@@ -42,8 +43,11 @@ const Election = ({ tkn }) => {
 		ongoing,
 		posts_count,
 		title,
+		uuid
 	} = election;
 
+
+	
 	return (
 		<>
 			{election !== null && election !== undefined ? (
@@ -56,7 +60,7 @@ const Election = ({ tkn }) => {
 
 					<Grid item xs={12} sm={12} md={12}>
 						<Card>
-							<CardHeader color="warning">
+							<CardHeader color="danger">
 								<h4 className={classes.cardTitleWhite}>Active Election</h4>
 								<p className={classes.cardCategoryWhite}>Election details</p>
 							</CardHeader>
@@ -128,8 +132,9 @@ const Election = ({ tkn }) => {
 									</Grid>
 								</Grid>
 								{/* end details grid container */}
+								{uuid !== undefined ? 
 								<Grid container>
-									{ongoing ? (
+									{ongoing && ongoing !==undefined? (
 										<>
 											<Grid item xs={6}>
 												<Button variant="contained" color="primary">
@@ -145,7 +150,8 @@ const Election = ({ tkn }) => {
 									) : (
 										<>
 											<Grid item xs={6}>
-												<Button variant="contained" color="primary">
+												<Button variant="contained" color="primary" 
+													onClick={()=> history.push(`/voting/election/${uuid}`)}>
 													View election
 												</Button>
 											</Grid>
@@ -157,6 +163,7 @@ const Election = ({ tkn }) => {
 										</>
 									)}
 								</Grid>
+								: null}
 							</CardBody>
 						</Card>
 					</Grid>
@@ -180,4 +187,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, null)(Election);
+export default withRouter(connect(mapStateToProps, null)(Election));

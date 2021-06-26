@@ -18,14 +18,11 @@ const interceptor = (token) => {
 
 /* ...................custom fetch hook .....................*/
 const useFetch = () => {
-
   const [election, setElection] = useState("");
   const [load, setLoad] = useState(false);
   const text = "loading election, please wait......";
   /* ............fetch election fn...............*/
   const fetchElection = (tkn) => {
-  
-    
     interceptor(tkn);
     setLoad(true);
     axios
@@ -41,7 +38,13 @@ const useFetch = () => {
   };
   /*..................fetch election end............*/
 
-  return [election, fetchElection, load, text];
+  /*...................... button creator fn ...............*/
+  const createButtons = () => {
+    if(election.ongoing) return ["view", "Apply candidacy"]
+    return ["view", "vote"]
+  }
+
+   return [election, fetchElection, load, text,createButtons];
 
 }
 export default useFetch;

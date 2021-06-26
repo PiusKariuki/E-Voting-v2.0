@@ -43,7 +43,8 @@ const tableStyle = (theme) => ({
     color: "inherit",
     ...defaultFont,
     "&, &$tableCell": {
-      fontSize: "1em",
+      fontSize: "1.5em",
+      textTransform: "uppercase",
     },
   },
   tableCell: {
@@ -51,10 +52,11 @@ const tableStyle = (theme) => ({
     lineHeight: "1.42857143",
     padding: "12px 8px",
     verticalAlign: "middle",
-    fontSize: "0.8125rem",
+    fontSize: "1rem",
+    fontWeight: "bold",
   },
   tableResponsive: {
-    width: "100%",
+    maxWidth: "100vw",
     marginTop: theme.spacing(3),
     overflowX: "auto",
   },
@@ -72,6 +74,9 @@ const tableStyle = (theme) => ({
     outline: "none",
     verticalAlign: "middle",
   },
+  btn: {
+    margin: "1rem",
+  }
 });
 
 export default tableStyle;
