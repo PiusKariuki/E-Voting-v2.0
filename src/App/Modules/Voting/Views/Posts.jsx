@@ -28,7 +28,7 @@ import CustomModal from "./CustomModal";
 // modal children
 import PostModal from "./PostModal";
 
-const useStyles = makeStyles();
+const useStyles = makeStyles(useStyle);
 
 // ........................parent fn...............
 const Posts = ({ tkn, history }) => {

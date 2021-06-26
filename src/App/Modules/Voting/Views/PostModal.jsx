@@ -15,7 +15,6 @@ import Card from "../../../Common/components/Card/Card.js";
 
 const useStyles = makeStyles(useStyle);
 const PostModal = ({ content }) => {
-	console.log(content);
 	const classes = useStyles();
 
 	// post.name,
@@ -45,20 +44,27 @@ const PostModal = ({ content }) => {
 					</Grid>
 				</>
 
-				<>
-					<Typography variant="h6">Residence</Typography>
-					<Typography variant="body2">{content[2]}</Typography>
-				</>
+				<Typography variant="h6">Residence</Typography>
+				{content[2].map((hall, key) => {
+				return(
+					<Grid container key={key}>
+						<Grid item xs={12} sm={12} md={6} lg={6}>
+							<Typography variant="body2">{hall.name}</Typography>
+						</Grid>
+					</Grid>
+					);
+				})}
+
 				<>
 					<Typography variant="h6">Requirements</Typography>
 					<Typography variant="body2">{content[3]}</Typography>
 				</>
+				
 				<>
 					<Typography variant="h6">Description</Typography>
 					<Typography variant="body2">{content[4]}</Typography>
 				</>
 
-				{/* departments end */}
 			</CardBody>
 		</Card>
 	);
