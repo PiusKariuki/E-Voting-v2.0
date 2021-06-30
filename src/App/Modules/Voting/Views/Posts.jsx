@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 // core components
-import Typography from "@material-ui/core/Typography";
 import Card from "../../../Common/components/Card/Card.js";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,7 +14,7 @@ import usePosts from "../Hooks/usePosts";
 import useFetch from "../Hooks/useFetch";
 // style import
 
-import { useStyle } from "../Hooks/useStyle";
+import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 
 // connect component to store
 import { connect } from "react-redux";
@@ -28,44 +27,66 @@ import CustomModal from "./CustomModal";
 // modal children
 import PostModal from "./PostModal";
 
-const useStyles = makeStyles(useStyle);
+const useStyles = makeStyles(dashboardStyle);
 
 // ........................parent fn...............
 const Posts = ({ tkn, history }) => {
-	const classes = useStyles(useStyle);
+	const classes = useStyles(useStyles);
 	// get election id from location
 	let pathname = history.location.pathname;
+	// ....the election idd is the last bit in the url
 	let id = pathname.substring(pathname.lastIndexOf("/") + 1);
 
 	// initialize posts hook
 	const [
 		loader,
-		txt,
-		fetchPosts,
-		posts,
-		createData,
-		clickHandler,
-		viewPost,
-		setViewPost,
-		postId,
-		postContent,
+    txt,
+    fetchPosts,
+    posts,
+    createData,
+    clickHandler,
+    viewPost,
+    setViewPost,
+    postId,
+    postContent,
+    cols,
+    mapPostIds,
+    postUuids, 
 	] = usePosts();
-	// fetchposts on initial render and reloads
+
+	// ....redirect fn...............
+	const navigate = () => {
+		if (postId !== "") history.push(`/voting/${id}/${postId}`);
+	};
 	React.useEffect(() => {
-		fetchPosts(tkn, id);
-	}, []);
+		navigate();
+		// call map fn to make an array of all ids in the posts for refing in the table
+	}, [clickHandler]);
 
 	// election hook for btns
-	const [election, fetchElection, load, text, createButtons] = useFetch();
-	// state hook to store btns
-	const [btns, setBtns] = React.useState([]);
-	// effect hook to load btns on every update
+	const [election, fetchElection, load, text, btns] = useFetch();
+
+	// fetchposts on initial render and reloads create btns too
 	React.useEffect(() => {
-		setBtns(createButtons());
+		fetchPosts(tkn, id);
+		fetchElection(tkn);
+		
 	}, []);
+
+	React.useEffect(() => {
+		mapPostIds(posts);
+	}, [posts])
+
+	// spinner hook
+	const [renderSpinner] = useSpinner();
 
 	return (
 		<Grid container>
+			{/* spinner  */}
+			<Grid item className={classes.spinner}>
+				{renderSpinner(loader, txt)}
+			</Grid>
+			{/* ..................card   */}
 			<Grid item xs={12} sm={12} md={12}>
 				<Card>
 					<CardHeader color="primary">
@@ -77,27 +98,27 @@ const Posts = ({ tkn, history }) => {
 					<CardBody>
 						{/* datatable */}
 						<Table
-							tableHeaderColor="danger"
-							tableHead={["name", "bound", "verified candidates", "voted yet"]}
-							tableData={createData(posts)}
+							tableHeaderColor="primary"
+							tableHead={cols}
+							// ...a function in our custom hook that populates the table
+							tableData={createData()}
 							btns={btns}
 							clickHandler={clickHandler}
+							ids={postUuids}
 						/>
 						{/* ......end datatable.... */}
 					</CardBody>
 				</Card>
 			</Grid>
+			{/* ...................end card........ */}
 
 			{/* custom modal for viewing  posts*/}
-			<Grid item className={classes.modal} >
-				<CustomModal
-					isOpen={viewPost}
-					handleClose={setViewPost}	
-				>
+			<Grid item className={classes.modal}>
+				<CustomModal isOpen={viewPost} handleClose={setViewPost}>
 					<PostModal content={postContent} />
 				</CustomModal>
 			</Grid>
-				{/* .....end modal.... */}
+			{/* .....end modal.... */}
 		</Grid>
 	);
 };

@@ -19,6 +19,7 @@ const interceptor = (token) => {
 /* ...................custom fetch hook .....................*/
 const useFetch = () => {
   const [election, setElection] = useState("");
+  const [btns, setBtns] = useState([]);
   const [load, setLoad] = useState(false);
   const text = "loading election, please wait......";
   /* ............fetch election fn...............*/
@@ -30,6 +31,10 @@ const useFetch = () => {
       .then((res) => {
         setElection(res.data.data)
         setLoad(false);
+        if (res.data.data.ongoing && res.data.data.active) setBtns(["view", "vote"]);
+        else if (!res.data.data.ongoing && res.data.data.active)
+          setBtns(["view", "apply candidacy"])
+
       })
       .catch((err) => {
         swal(err?.response?.data?.message, '', 'error');
@@ -39,12 +44,9 @@ const useFetch = () => {
   /*..................fetch election end............*/
 
   /*...................... button creator fn ...............*/
-  const createButtons = () => {
-    if(election.ongoing) return ["view", "Apply candidacy"]
-    return ["view", "vote"]
-  }
 
-   return [election, fetchElection, load, text,createButtons];
+
+  return [election, fetchElection, load, text, btns];
 
 }
 export default useFetch;

@@ -18,8 +18,11 @@ import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 const useStyles = makeStyles(styles);
 
 export default function CustomTable(props) {
+
+
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor,btns, clickHandler } = props;
+  const { tableHead, tableData, tableHeaderColor, btns, clickHandler, ids} = props;
+  console.log(ids);
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
@@ -40,18 +43,20 @@ export default function CustomTable(props) {
 
               {/* action buttons */}
               <TableCell
-              className={classes.tableCell + " " + classes.tableHeadCell}>
+                className={classes.tableCell + " " + classes.tableHeadCell}>
                 Actions
               </TableCell>
 
             </TableRow>
           </TableHead>
         ) : null}
+
+
         <TableBody>
-          {tableData.map((prop, key) => {
-            
+          {/* use our create data method to populate our table */}
+          {tableData.map((prop, row) => {
             return (
-              <TableRow key={key} className={classes.tableBodyRow}>
+              <TableRow key={row} className={classes.tableBodyRow}>
                 {prop.map((prop, key) => {
                   return (
                     typeof (prop) !== "boolean" ? (
@@ -68,11 +73,12 @@ export default function CustomTable(props) {
                 })}
                 {/* action buttons */}
                   <TableCell className={classes.tableCell}>
-                      {btns.length >0 && btns.map((btn,key) =>{
+                      {btns && btns.map((btn,key) =>{ 
                         return(
                           <Button variant="contained" color="secondary" key={key}
                             className={classes.btn} name={btn} id={btn} size="small"
-                            onClick={(btn) => clickHandler(btn,prop[0])}>{btn}</Button>
+                          // passing in the first cell in the row as prop[0]
+                            onClick={(btn) => clickHandler(btn,ids[row])}>{btn}</Button>
                         )
                       })}
                   </TableCell>

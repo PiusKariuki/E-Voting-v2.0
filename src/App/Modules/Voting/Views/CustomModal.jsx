@@ -37,7 +37,7 @@ const CustomModal = ({ isOpen, handleClose, title, subtitle, children }) => {
 CustomModal.propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 	handleClose: PropTypes.func.isRequired,
-	title: PropTypes.string.isRequired,
+	title: PropTypes.string,
 	subtitle: PropTypes.string,
 	children: PropTypes.element.isRequired,
 };

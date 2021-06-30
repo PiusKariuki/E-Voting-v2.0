@@ -26,7 +26,6 @@ import { Link, withRouter, useHistory } from "react-router-dom";
 // spinner hook import
 import useSpinner from "App/Common/Spinner/Spinner";
 
-
 // material ui styling
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -95,9 +94,7 @@ function Landing({ login, loading, passError, mailError, tkn }) {
 	let history = useHistory();
 
 	React.useEffect(() => {
-		tkn !== undefined && tkn !== null ?
-		 history.push("/voting") 
-		 : null;
+		tkn !== undefined && tkn !== null ? history.push("/voting") : null;
 	}, [handleSubmit]);
 
 	return (

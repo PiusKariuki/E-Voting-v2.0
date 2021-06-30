@@ -2,7 +2,7 @@ import { useState } from "react";
 import { axios } from "../../../Common/Shared/Shared";
 import swal from "sweetalert";
 import useInterceptor from "./useInterceptor";
-// import election to know state for btns
+
 
 /*................fetch posts start..................*/
 const usePosts = () => {
@@ -10,6 +10,8 @@ const usePosts = () => {
   const [posts, setPosts] = useState([]);
   const txt = "loading posts please wait......";
   const [loader, setLoad] = useState(false);
+  // array of all post ids
+  const [postUuids, setPostUuids] = useState([]);
   //...end state hooks...
 
   // initialize interceptor
@@ -32,26 +34,17 @@ const usePosts = () => {
       });
   };
 
-  const cols = posts.length > 0 && Object.keys(posts[0]);
 
-  const filteredCols = () =>
-    cols.length > 0 &&
-    cols.filter(
-      (col) =>
-        col !== "created_at" &&
-        col !== "uuid" &&
-        col !== "departments" &&
-        col !== "description" &&
-        col !== "options" &&
-        col !== "candidates_count" &&
-        col !== "requirements" &&
-        col !== "residence"
-    );
-
+  // define the cols for our table
+  const cols = ["name", "bound", "verified candidates", "voted yet"];
   // create table rows fn
-  const createData = (data) => {
+  /* ....create an array of uuids for keeping track of selection and reusabiliy of tablle
+    component................................ */
+
+  const createData = () => {
     const columns = ["name", "bound", "verified_candidates_count", "voted"];
-    const rows = data.map((data) => columns.map((col) => data[col]));
+    const rows = posts.map((data) => columns.map((col) => data[col]));
+
     return rows;
   };
   // end create data
@@ -60,18 +53,18 @@ const usePosts = () => {
   // btn click handler
   // modal state hook
   const [viewPost, setViewPost] = useState(false);
-  // selected post id for routing 
+  // selected post id for routing to the selected post. not to be confused with postUuids.
   const [postId, setPostId] = useState("");
   /*  selected post info for the modalprops 
   :departaments , descriptions residence and requirements
   */
   const [postContent, setPostContent] = useState([])
-  const clickHandler = (btn, name) => {
+  const clickHandler = (btn, uuid) => {
     let e = btn.target.innerHTML;
     if (e === "view") {
       setViewPost(true);
       return posts.map((post) => {
-        if (post.name === name)
+        if (post.uuid === uuid)
           setPostContent(
             [
               post.name,
@@ -82,11 +75,20 @@ const usePosts = () => {
             ]);
       });
     }
-    //  else if (e === "vote") {
-    //   history.push("/voting/posts/aspirants");
-    // } else history.push("/voting/posts/apply");
+    else if (e === "vote")
+      setPostId(uuid)
+
   };
   // end click handler................
+
+  // map through posts and make an array of id for routing
+  const mapPostIds = (posts) => {
+    posts.forEach(post => {
+      return setPostUuids(prev => [...prev,post.uuid])
+    })
+  }
+
+
 
   return [
     loader,
@@ -98,7 +100,10 @@ const usePosts = () => {
     viewPost,
     setViewPost,
     postId,
-    postContent
+    postContent,
+    cols,
+    mapPostIds,
+    postUuids,
   ];
 };
 

@@ -17,11 +17,6 @@ const useStyles = makeStyles(useStyle);
 const PostModal = ({ content }) => {
 	const classes = useStyles();
 
-	// post.name,
-	//             post.departments,
-	//             post.residence,
-	//             post.requirements,
-	//             post.description
 	return (
 		<Card>
 			<CardHeader color="primary">
@@ -30,12 +25,12 @@ const PostModal = ({ content }) => {
 			<CardBody>
 				{/* departments list */}
 				<>
-					<Typography variant="h6">Departments</Typography>
+					<Typography variant="h6" color="secondary">Departments</Typography>
 					<Grid container>
 						{content[1].map((department, key) => {
 							return (
-								<Grid item xs={12} sm={12} md={4} lg={4}>
-									<Typography color="success" variant="body2">
+								<Grid item xs={12} sm={12} md={4} lg={4}  key={key}>
+									<Typography  variant="body2">
 										{department.name}
 									</Typography>
 								</Grid>
@@ -44,7 +39,7 @@ const PostModal = ({ content }) => {
 					</Grid>
 				</>
 
-				<Typography variant="h6">Residence</Typography>
+				<Typography variant="h6" color="secondary">Residence</Typography>
 				{content[2].map((hall, key) => {
 				return(
 					<Grid container key={key}>
@@ -56,12 +51,12 @@ const PostModal = ({ content }) => {
 				})}
 
 				<>
-					<Typography variant="h6">Requirements</Typography>
+					<Typography variant="h6" color="secondary">Requirements</Typography>
 					<Typography variant="body2">{content[3]}</Typography>
 				</>
 				
 				<>
-					<Typography variant="h6">Description</Typography>
+					<Typography variant="h6" color="secondary">Description</Typography>
 					<Typography variant="body2">{content[4]}</Typography>
 				</>
 

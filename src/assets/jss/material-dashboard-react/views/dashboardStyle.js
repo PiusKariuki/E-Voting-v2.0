@@ -88,6 +88,10 @@ const dashboardStyle = {
     alignItems: "center",
     maxHeight: "400px"
   },
+  btns: {
+    marginTop: "1rem",
+    marginBottom: "2rem"
+  }
 };
 
 export default dashboardStyle;

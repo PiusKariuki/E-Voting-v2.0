@@ -25,11 +25,11 @@ const useSpinner = () => {
 					<Grid container>
 
 						<Grid item xs={12} >
-							<CircularProgress color="primary" xs={12} />
+							<CircularProgress color="secondary" xs={12} />
 						</Grid>
 
 						<Grid item xs={12} >
-							<Typography variant="subtitle1">
+							<Typography variant="subtitle1" color ="secondary">
 								{text}
 							</Typography>
 						</Grid>

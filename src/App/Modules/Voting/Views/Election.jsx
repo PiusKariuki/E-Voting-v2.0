@@ -25,7 +25,7 @@ import useSpinner from "../../../Common/Spinner/Spinner";
 
 const useStyles = makeStyles(styles);
 
-const Election = ({ tkn,history }) => {
+const Election = ({ tkn, history }) => {
 	const classes = useStyles();
 	const [election, fetchElection, load, text] = useFetch();
 
@@ -43,11 +43,9 @@ const Election = ({ tkn,history }) => {
 		ongoing,
 		posts_count,
 		title,
-		uuid
+		uuid,
 	} = election;
 
-
-	
 	return (
 		<>
 			{election !== null && election !== undefined ? (
@@ -60,7 +58,7 @@ const Election = ({ tkn,history }) => {
 
 					<Grid item xs={12} sm={12} md={12}>
 						<Card>
-							<CardHeader color="danger">
+							<CardHeader color="primary">
 								<h4 className={classes.cardTitleWhite}>Active Election</h4>
 								<p className={classes.cardCategoryWhite}>Election details</p>
 							</CardHeader>
@@ -132,38 +130,37 @@ const Election = ({ tkn,history }) => {
 									</Grid>
 								</Grid>
 								{/* end details grid container */}
-								{uuid !== undefined ? 
-								<Grid container>
-									{ongoing && ongoing !==undefined? (
-										<>
-											<Grid item xs={6}>
-												<Button variant="contained" color="primary">
-													View election
-												</Button>
-											</Grid>
-											<Grid item xs={6}>
-												<Button variant="contained" color="secondary">
-													Apply for Candidacy
-												</Button>
-											</Grid>
-										</>
-									) : (
-										<>
-											<Grid item xs={6}>
-												<Button variant="contained" color="primary" 
-													onClick={()=> history.push(`/voting/election/${uuid}`)}>
-													View election
-												</Button>
-											</Grid>
-											<Grid item xs={6}>
-												<Button variant="contained" color="secondary">
-													Vote
-												</Button>
-											</Grid>
-										</>
-									)}
+
+								{/* some instructions */}
+								<Grid item xs={12} sm={12} md={12}>
+									<Typography variant="subtitle1" color="secondary">
+										INSTRUCTIONS
+									</Typography>
+									<Typography variant="body1">
+										1.To vote or apply for candidacy, click proceed to posts
+									</Typography>
+									<Typography variant="body1">
+										2.To view the aspirants and posts click view
+									</Typography>
 								</Grid>
-								: null}
+								{/* once election loads buttons show up */}
+								{uuid !== undefined ? (
+									<Grid container>
+										{/* ....buttons  */}
+										<Grid item xs={12} sm={12} md={6} lg={6} className={classes.btns}>
+											<Button variant="contained" color="primary"
+												onClick={()=> history.push(`/voting/${uuid}`)}>
+												Proceed to posts
+											</Button>
+										</Grid>
+										<Grid item xs={12} sm={12} md={6} lg={6} className={classes.btns}>
+											<Button variant="contained" color="secondary">
+												View stats
+											</Button>
+										</Grid>
+										{/* ...buttons end */}
+									</Grid>
+								) : null}
 							</CardBody>
 						</Card>
 					</Grid>

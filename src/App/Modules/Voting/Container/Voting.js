@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -37,7 +37,6 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/voting" to="/voting/election" />
   </Switch>
 );
 /*.......................end routing mp fn...................*/
