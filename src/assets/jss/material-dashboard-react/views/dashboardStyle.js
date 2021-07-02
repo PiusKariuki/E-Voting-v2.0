@@ -91,7 +91,14 @@ const dashboardStyle = {
   btns: {
     marginTop: "1rem",
     marginBottom: "2rem"
+  },
+  img: {
+    maxWidth: "100%"
+  },
+  container: {
+    justifyContent: "space-between",
   }
+
 };
 
 export default dashboardStyle;

@@ -16,7 +16,9 @@ const interceptor = (token) => {
   });
 };
 
-/* ...................custom fetch hook .....................*/
+/*
+ * custom fetch hook
+ */
 const useFetch = () => {
   const [election, setElection] = useState("");
   const [btns, setBtns] = useState([]);

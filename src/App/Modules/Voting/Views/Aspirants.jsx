@@ -22,17 +22,31 @@ import useSpinner from "../../../Common/Spinner/Spinner";
 import useAspirants from "../Hooks/useAspirants";
 
 import CustomModal from "./CustomModal";
+import AspirantModal from "./AspirantModal.jsx";
 
 const useStyles = makeStyles(dashboardStyle);
 
 // ....parent function
 const Aspirants = ({ history, tkn }) => {
 	//................hook destructuring start
-	const [aspirants, fetchAspirants, txt, loader,createData] = useAspirants();
+	const [
+		aspirants,
+		fetchAspirants,
+		txt,
+		loader,
+		createData,
+		viewAsp,
+		setViewAsp,
+		aspContent,
+		clickHandler,
+		mapAspIds,
+		aspUuids,
+		castVote,
+	] = useAspirants();
+
 	const [renderSpinner] = useSpinner();
 
 	//...............hook  destructuring end
-
 
 	// get election id from location
 	let pathname = history.location.pathname;
@@ -41,27 +55,33 @@ const Aspirants = ({ history, tkn }) => {
 	let electionId = id[2];
 	let postId = id[3];
 
-
 	//........effect hook for fetching Aspirants
 	React.useEffect(() => {
 		fetchAspirants(tkn, electionId, postId);
+
 		// createData(aspirants)
 	}, []);
+
+	// make an array of uuids
+	React.useEffect(() => {
+		mapAspIds(aspirants);
+	}, [aspirants]);
 
 	const classes = useStyles();
 	return (
 		<Grid container>
-
 			{/* spinner grid */}
-			<Grid item  className={classes.spinner}>
+			<Grid item className={classes.spinner}>
 				{renderSpinner(loader, txt)}
 			</Grid>
 			<Grid item xs={12} sm={12} md={12}>
 				<Card>
 					<CardHeader color="primary">
-						{/* if no posts are available */}
+						{/* if no aspirants are available */}
 						{aspirants.length < 1 ? (
-							<Typography variant="h6">NO candidates for this post</Typography>
+							<Typography variant="h6" color="secondary">
+								NO candidates yet!
+							</Typography>
 						) : (
 							<>
 								<h4 className={classes.cardTitleWhite}>Post Candidates</h4>
@@ -75,15 +95,37 @@ const Aspirants = ({ history, tkn }) => {
 						{/* datatable */}
 						<Table
 							tableHeaderColor="primary"
-							tableHead={["first name", "middle name", "last name", "id. number"]}
+							tableHead={[
+								"first name",
+								"middle name",
+								"last name",
+								"id. number",
+							]}
 							tableData={createData(aspirants)}
 							btns={["view", "vote"]}
-							clickHandler
+							clickHandler={clickHandler}
+							ids={aspUuids}
 						/>
 						{/* ......end datatable.... */}
 					</CardBody>
 				</Card>
 			</Grid>
+			{/* end card grid .............*/}
+
+			{/* custom modal for viewing  aspirants*/}
+			<Grid item className={classes.modal}>
+				<CustomModal isOpen={viewAsp} handleClose={setViewAsp}>
+					<AspirantModal
+						content={aspContent}
+						electionId={electionId}
+						postId={postId}
+						castVote={castVote}
+						tkn={tkn}
+						loader={loader}
+					/>
+				</CustomModal>
+			</Grid>
+			{/* .....end modal.... */}
 		</Grid>
 	);
 };

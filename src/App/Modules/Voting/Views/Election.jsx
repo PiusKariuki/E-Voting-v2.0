@@ -132,17 +132,7 @@ const Election = ({ tkn, history }) => {
 								{/* end details grid container */}
 
 								{/* some instructions */}
-								<Grid item xs={12} sm={12} md={12}>
-									<Typography variant="subtitle1" color="secondary">
-										INSTRUCTIONS
-									</Typography>
-									<Typography variant="body1">
-										1.To vote or apply for candidacy, click proceed to posts
-									</Typography>
-									<Typography variant="body1">
-										2.To view the aspirants and posts click view
-									</Typography>
-								</Grid>
+
 								{/* once election loads buttons show up */}
 								{uuid !== undefined ? (
 									<Grid container>

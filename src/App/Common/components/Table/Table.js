@@ -22,7 +22,7 @@ export default function CustomTable(props) {
 
   const classes = useStyles();
   const { tableHead, tableData, tableHeaderColor, btns, clickHandler, ids} = props;
-  console.log(ids);
+
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
