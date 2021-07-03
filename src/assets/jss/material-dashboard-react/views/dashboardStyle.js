@@ -96,7 +96,7 @@ const dashboardStyle = {
     maxWidth: "100%"
   },
   container: {
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   }
 
 };

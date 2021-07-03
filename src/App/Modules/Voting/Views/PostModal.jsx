@@ -29,7 +29,7 @@ const PostModal = ({ content }) => {
 					<Grid container>
 						{content[1] && content[1].map((department, key) => {
 							return (
-								<Grid item xs={12} sm={12} md={4} lg={4}  key={key}>
+								<Grid item xs={12} sm={12} md={12} lg={12}  key={key}>
 									<Typography  variant="body2">
 										{department.name}
 									</Typography>
@@ -43,7 +43,7 @@ const PostModal = ({ content }) => {
 				{content[2] &&content[2].map((hall, key) => {
 				return(
 					<Grid container key={key}>
-						<Grid item xs={12} sm={12} md={6} lg={6}>
+						<Grid item xs={12} sm={12} md={12} lg={12}>
 							<Typography variant="body2">{hall.name}</Typography>
 						</Grid>
 					</Grid>

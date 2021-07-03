@@ -41,16 +41,17 @@ const AspirantModal = ({ content, electionId, postId, castVote, tkn, loader }) =
 						<Typography variant="h6" color="secondary">
 							Manifesto:
 						</Typography>
-						<Typography variant="body2" color="primary">
+						<Typography variant="body2" >
 							{content[2]}
 						</Typography>
 					</Grid>
 				</Grid>
+
 				{renderSpinner(loader, "Processing vote...please wait")}
 			</CardBody>
 			{content.length > 3 ? <CardFooter>
 				{/* ........post.uuid in index 3 */}
-				<Button variant="contained" color="primary"
+				<Button variant="contained" color="primary" size="small"
 					onClick={()=> castVote(tkn, electionId, postId,content[3])}>Cast Vote</Button>
 			</CardFooter> : null}
 		</Card>

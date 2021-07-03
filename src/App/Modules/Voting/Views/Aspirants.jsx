@@ -6,6 +6,7 @@ import Card from "../../../Common/components/Card/Card.js";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 // common component imports
 import CardHeader from "../../../Common/components/Card/CardHeader.js";
@@ -80,7 +81,7 @@ const Aspirants = ({ history, tkn }) => {
 						{/* if no aspirants are available */}
 						{aspirants.length < 1 ? (
 							<Typography variant="h6" color="secondary">
-								NO candidates yet!
+								No candidates yet!
 							</Typography>
 						) : (
 							<>
@@ -126,6 +127,28 @@ const Aspirants = ({ history, tkn }) => {
 				</CustomModal>
 			</Grid>
 			{/* .....end modal.... */}
+			<Grid container className={classes.container}>
+				<Grid item xs={4}>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => history.push(`/voting/${electionId}`)}
+						size="small"
+					>
+						Keep voting
+					</Button>
+				</Grid>
+				<Grid item xs={4}>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => history.push(`/voting`)}
+						size="small"
+					>
+						Finished voting
+					</Button>
+				</Grid>
+			</Grid>
 		</Grid>
 	);
 };

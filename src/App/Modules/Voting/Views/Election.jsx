@@ -68,65 +68,55 @@ const Election = ({ tkn, history }) => {
 									{/* election title */}
 									<Grid item xs={12} sm={12} md={12}>
 										<p>
-											<span>
-												<i>Name :</i>
-											</span>
-											<span>
-												<b>{title}</b>
-											</span>
+											<i>Name :</i>
+										</p>
+										<p>
+											<b>{title}</b>
 										</p>
 									</Grid>
 
 									{/* election start date */}
 									<Grid item xs={12} sm={12} md={6}>
 										<p>
-											<span>
-												<i>From :</i>
-											</span>
-											<span>
-												<b>{election_open_date}</b>
-											</span>
+											<i>From :</i>
+										</p>
+										<p>
+											<b>{election_open_date}</b>
 										</p>
 									</Grid>
 
 									{/* election end date */}
 									<Grid item xs={12} sm={12} md={6}>
 										<p>
-											<span>
-												<i>To :</i>
-											</span>
-											<span>
-												<b>{election_close_date}</b>
-											</span>
+											<i>To :</i>
+										</p>
+										<p>
+											<b>{election_close_date}</b>
 										</p>
 									</Grid>
 									{/* election status */}
 									<Grid item xs={12} sm={12} md={6}>
 										<p>
-											<span>
 												<i>Status :</i>
-											</span>
 											{ongoing ? (
-												<span>
+												<p>
 													<b>ongoing</b>
-												</span>
+												</p>
 											) : (
-												<span>
+												<p>
 													<b>active</b>
-												</span>
+												</p>
 											)}
 										</p>
 									</Grid>
 									{/* election post count */}
 									<Grid item xs={12} sm={12} md={6}>
 										<p>
-											<span>
 												<i>Number of posts :</i>
-											</span>
-											<span>
+											</p>
+											<p>
 												<b>{posts_count}</b>
-											</span>
-										</p>
+											</p>
 									</Grid>
 								</Grid>
 								{/* end details grid container */}
@@ -137,13 +127,30 @@ const Election = ({ tkn, history }) => {
 								{uuid !== undefined ? (
 									<Grid container>
 										{/* ....buttons  */}
-										<Grid item xs={12} sm={12} md={6} lg={6} className={classes.btns}>
-											<Button variant="contained" color="primary"
-												onClick={()=> history.push(`/voting/${uuid}`)}>
+										<Grid
+											item
+											xs={12}
+											sm={12}
+											md={6}
+											lg={6}
+											className={classes.btns}
+										>
+											<Button
+												variant="contained"
+												color="primary"
+												onClick={() => history.push(`/voting/${uuid}`)}
+											>
 												Proceed to posts
 											</Button>
 										</Grid>
-										<Grid item xs={12} sm={12} md={6} lg={6} className={classes.btns}>
+										<Grid
+											item
+											xs={12}
+											sm={12}
+											md={6}
+											lg={6}
+											className={classes.btns}
+										>
 											<Button variant="contained" color="secondary">
 												View stats
 											</Button>

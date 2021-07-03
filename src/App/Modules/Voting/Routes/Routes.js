@@ -6,9 +6,19 @@ import Posts from "../Views/Posts";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import Aspirants from "../Views/Aspirants";
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import ApplyCandidacy from "../Views/ApplyCandidacy";
 
 
 export const Routes = [
+  // apply candidacy 
+  {
+    path: "/:electionId/apply/:postId",
+    name: "Apply Candidacy",
+    component: ApplyCandidacy,
+    icon: PersonOutlineOutlinedIcon,
+    layout: "/voting",
+    onmenu: false
+  },
   // aspirants route
   {
     path: "/:electionId/:postId",

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import  { useState } from "react";
 import { axios } from "../../../Common/Shared/Shared";
 import swal from "sweetalert";
 import useInterceptor from "./useInterceptor";
+import { useHistory } from "react-router";
 
 
 /*................fetch posts start..................*/
@@ -55,10 +56,17 @@ const usePosts = () => {
   const [viewPost, setViewPost] = useState(false);
   // selected post id for routing to the selected post. not to be confused with postUuids.
   const [postId, setPostId] = useState("");
+
+  
   /*  selected post info for the modalprops 
   :departaments , descriptions residence and requirements
   */
   const [postContent, setPostContent] = useState([])
+
+  let history = useHistory();
+
+
+
   const clickHandler = (btn, uuid) => {
     let e = btn.target.innerHTML;
     if (e === "view") {
@@ -77,6 +85,13 @@ const usePosts = () => {
     }
     else if (e === "vote")
       setPostId(uuid)
+      else if(e === "apply candidacy"){ 
+        let pathname = history.location.pathname;
+        // ....the election idd is the last bit in the url
+        let id = pathname.substring(pathname.lastIndexOf("/") + 1);
+        history.push(`/voting/${id}/apply/${uuid}`)
+      }
+        
 
   };
   // end click handler................
