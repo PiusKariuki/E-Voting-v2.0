@@ -1,6 +1,8 @@
 import Register from "../Views/Register";
 import Landing from "../Views/Landing";
-import Voting from "../../Voting/Container/Voting"
+import Voting from "../../Voting/Container/Voting";
+import Profile from "App/Modules/Profile/Container/Profile";
+
 
 const authRoutes = [
   {
@@ -20,6 +22,12 @@ const authRoutes = [
     name: "Voting",
     component: Voting,
     layout: "/voting",
+  },
+  {
+    path: "",
+    name: "Profile",
+    component: Profile,
+    layout: "/profile",
   }
 ];
 

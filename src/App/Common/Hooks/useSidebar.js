@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-// creates a beautiful scrollbar
+
 import PerfectScrollbar from "perfect-scrollbar";
 
 const useSidebar = () => {

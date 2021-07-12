@@ -3,10 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -21,7 +18,7 @@ import { Login } from "../Store/ActionCreators/ActionCreators";
 // logic import
 import useLogin from "../Hooks/useLoginLogic";
 // history import
-import { Link, withRouter, useHistory } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 // spinner hook import
 import useSpinner from "App/Common/Spinner/Spinner";
@@ -58,17 +55,12 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
-	spinner: {
-		position: "absolute",
-		right: "20rem",
-		alignSelf: "center",
-	},
 }));
 
 // parent fn
-function Landing({ login, loading, passError, mailError, tkn }) {
+function Landing({ login, loading, passError, mailError, tkn, user, history }) {
 	const classes = useStyles();
-
+	// let history = useHistory();
 	// custom hook
 	const [changeHandler, mail, password, errMess, mailErr, passErr] = useLogin();
 
@@ -91,21 +83,19 @@ function Landing({ login, loading, passError, mailError, tkn }) {
 		login(mail, password);
 	};
 
-	let history = useHistory();
+	React.useEffect(() => {
+    if(tkn === undefined) history.push("/auth/landing")
+  },[history]);
 
 	React.useEffect(() => {
 		tkn !== undefined && tkn !== null ? history.push("/voting") : null;
-	}, [handleSubmit]);
+	}, [handleSubmit, history]);
 
 	return (
 		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={7} className={classes.image} />
-			{/*..................... spinner..................................... */}
-			<Grid item xs className={classes.spinner}>
-				{renderSpinner(loading)}
-			</Grid>
-			{/* ..............spinnner end.................... */}
+
 			{/* ...................input email and password........................... */}
 			<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 				<div className={classes.paper}>
@@ -156,6 +146,12 @@ function Landing({ login, loading, passError, mailError, tkn }) {
 						<Typography variant="body2" color="error">
 							{passErr}
 						</Typography>
+
+						{/*..................... spinner..................................... */}
+						<Grid item>
+							{renderSpinner(loading, "Processing request, please wait")}
+						</Grid>
+						{/* ..............spinnner end.................... */}
 						<Button
 							type="submit"
 							fullWidth
@@ -188,6 +184,7 @@ const mapStateToProps = (state) => {
 		passError: state.User?.errmess?.password,
 		mailError: state.User?.errmess?.email,
 		tkn: state.User?.tkn,
+		user: state.User,
 	};
 };
 

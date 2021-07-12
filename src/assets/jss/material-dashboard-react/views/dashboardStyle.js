@@ -93,7 +93,8 @@ const dashboardStyle = {
     marginBottom: "2rem"
   },
   img: {
-    maxWidth: "100%"
+    height: "250px",
+    justifySelf: "center",
   },
   container: {
     justifyContent: "space-around",

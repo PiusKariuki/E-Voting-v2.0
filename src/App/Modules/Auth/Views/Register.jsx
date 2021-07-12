@@ -91,13 +91,6 @@ const Register = ({ register, loading, regMess }) => {
 		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={7} className={classes.image} />
-
-			{/*..................... spinner..................................... */}
-			<Grid item xs className={classes.spinner}>
-				{renderSpinner(loading)}
-			</Grid>
-			{/* ..............spinnner end.................... */}
-
 			{/* ..............email input div............. */}
 			<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 				<div className={classes.paper}>
@@ -129,6 +122,11 @@ const Register = ({ register, loading, regMess }) => {
 						<Typography variant="body2" color="error">
 							{regErr}
 						</Typography>
+						{/*..................... spinner..................................... */}
+						<Grid item xs>
+							{renderSpinner(loading, "Processing request please wait...")}
+						</Grid>
+						{/* ..............spinnner end.................... */}
 						<Button
 							type="submit"
 							fullWidth

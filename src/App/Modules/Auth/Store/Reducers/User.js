@@ -38,7 +38,7 @@ export const User = (
       return {
         ...state,
         errmess: null,
-        newUser: null,
+        User: null,
         loading: false,
       };
 

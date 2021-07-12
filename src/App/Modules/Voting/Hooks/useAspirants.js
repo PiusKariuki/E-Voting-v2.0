@@ -104,12 +104,14 @@ const useAspirants = () => {
       .then(res => {
         setLoad(false)
         swal("Voting successful", "", "success")
+        setViewAsp(false);
       })
       .catch(err => {
         setLoad(false)
         if (err?.response?.data?.message) {
           swal(err?.response?.data?.message, '', 'error')
         }
+        setViewAsp(false);
       })
   }
 

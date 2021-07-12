@@ -17,9 +17,13 @@ import Button from "../CustomButtons/Button.js";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LogoutThunk } from "App/Modules/Auth/Store/ActionCreators/ActionCreators";
+
 const useStyles = makeStyles(styles);
 
-export default function AdminNavbarLinks() {
+function AdminNavbarLinks({ Logout, history }) {
   const classes = useStyles();
   const [openProfile, setOpenProfile] = React.useState(null);
 
@@ -74,14 +78,17 @@ export default function AdminNavbarLinks() {
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={() => history.push("/profile")}
                       className={classes.dropdownItem}
                     >
                       Profile
                     </MenuItem>
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={() => {
+                        history.replace("/auth");
+                        Logout();
+                      }}
                       className={classes.dropdownItem}
                     >
                       Logout
@@ -96,3 +103,10 @@ export default function AdminNavbarLinks() {
     </div>
   );
 }
+
+
+const mapDispatchToProps = dispatch => ({
+  Logout: () => dispatch(LogoutThunk())
+})
+
+export default withRouter(connect(null, mapDispatchToProps)(AdminNavbarLinks));

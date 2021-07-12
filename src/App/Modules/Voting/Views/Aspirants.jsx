@@ -22,8 +22,8 @@ import useSpinner from "../../../Common/Spinner/Spinner";
 // fetch hook
 import useAspirants from "../Hooks/useAspirants";
 
-import CustomModal from "./CustomModal";
-import AspirantModal from "./AspirantModal.jsx";
+import CustomModal from "../Components/CustomModal";
+import AspirantModal from "../Components/AspirantModal.jsx";
 
 const useStyles = makeStyles(dashboardStyle);
 
@@ -67,6 +67,11 @@ const Aspirants = ({ history, tkn }) => {
 	React.useEffect(() => {
 		mapAspIds(aspirants);
 	}, [aspirants]);
+
+	React.useEffect(() => {
+		// setViewAsp(false)
+	},[castVote]);
+	
 
 	const classes = useStyles();
 	return (
@@ -123,6 +128,7 @@ const Aspirants = ({ history, tkn }) => {
 						castVote={castVote}
 						tkn={tkn}
 						loader={loader}
+						handleClose={setViewAsp}
 					/>
 				</CustomModal>
 			</Grid>

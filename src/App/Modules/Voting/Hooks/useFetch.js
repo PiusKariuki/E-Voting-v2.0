@@ -17,7 +17,7 @@ const interceptor = (token) => {
 };
 
 /*
- * custom fetch hook
+ * custom fetch hook to get active election details
  */
 const useFetch = () => {
   const [election, setElection] = useState("");

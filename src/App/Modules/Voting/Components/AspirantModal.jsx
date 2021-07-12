@@ -20,10 +20,18 @@ import useSpinner from "../../../Common/Spinner/Spinner";
 
 const useStyles = makeStyles(dashboardStyle);
 
-const AspirantModal = ({ content, electionId, postId, castVote, tkn, loader }) => {
-
+const AspirantModal = ({
+	content,
+	electionId,
+	postId,
+	castVote,
+	tkn,
+	loader,
+	handleClose,
+}) => {
 	const [renderSpinner] = useSpinner();
 	const classes = useStyles();
+
 	return (
 		<Card>
 			<CardHeader color="primary">
@@ -33,27 +41,33 @@ const AspirantModal = ({ content, electionId, postId, castVote, tkn, loader }) =
 			<CardBody>
 				{/* image url index 1 */}
 				<Grid container className={classes.container}>
-					<Grid item xs={12} sm={12} md={6} lg={6}>
+					<Grid item >
 						<img src={content[1]} alt="" className={classes.img} />
 					</Grid>
 					{/* index 2 is manifesto */}
-					<Grid item xs={12} sm={12} md={5} lg={5}>
+					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<Typography variant="h6" color="secondary">
 							Manifesto:
 						</Typography>
-						<Typography variant="body2" >
-							{content[2]}
-						</Typography>
+						<Typography variant="body2">{content[2]}</Typography>
 					</Grid>
 				</Grid>
 
 				{renderSpinner(loader, "Processing vote...please wait")}
 			</CardBody>
-			{content.length > 3 ? <CardFooter>
-				{/* ........post.uuid in index 3 */}
-				<Button variant="contained" color="primary" size="small"
-					onClick={()=> castVote(tkn, electionId, postId,content[3])}>Cast Vote</Button>
-			</CardFooter> : null}
+			{content.length > 3 ? (
+				<CardFooter>
+					{/* ........post.uuid in index 3 */}
+					<Button
+						variant="contained"
+						color="primary"
+						size="small"
+						onClick={() => castVote(tkn, electionId, postId, content[3])}
+					>
+						Cast Vote
+					</Button>
+				</CardFooter>
+			) : null}
 		</Card>
 	);
 };

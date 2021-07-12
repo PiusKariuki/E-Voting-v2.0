@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 // core components
-
 import Typography from "@material-ui/core/Typography";
 import Card from "../../../Common/components/Card/Card.js";
 import Grid from "@material-ui/core/Grid";
@@ -96,7 +95,7 @@ const Election = ({ tkn, history }) => {
 									</Grid>
 									{/* election status */}
 									<Grid item xs={12} sm={12} md={6}>
-										<p>
+										<>
 												<i>Status :</i>
 											{ongoing ? (
 												<p>
@@ -107,7 +106,7 @@ const Election = ({ tkn, history }) => {
 													<b>active</b>
 												</p>
 											)}
-										</p>
+										</>
 									</Grid>
 									{/* election post count */}
 									<Grid item xs={12} sm={12} md={6}>
@@ -151,9 +150,9 @@ const Election = ({ tkn, history }) => {
 											lg={6}
 											className={classes.btns}
 										>
-											<Button variant="contained" color="secondary">
+											{/* <Button variant="contained" color="secondary">
 												View stats
-											</Button>
+											</Button> */}
 										</Grid>
 										{/* ...buttons end */}
 									</Grid>

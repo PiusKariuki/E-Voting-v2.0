@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { axios } from "../../../Common/Shared/Shared";
 import swal from "sweetalert";
 import useInterceptor from "./useInterceptor";
-import { useHistory, withRouter } from "react-router";
+import { useHistory} from "react-router";
 
 
 
@@ -33,6 +32,7 @@ const useApply = () => {
     interceptor(tkn);
     axios.post('candidate/voter/candidates', newAspirant)
       .then(res => {
+        setLoad(false)
         swal("Candidate application successful", "", "success")
       }).catch(err => {
         setErrMsg(err.response.data.errors);

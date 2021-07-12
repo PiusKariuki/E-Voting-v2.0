@@ -23,9 +23,9 @@ import { connect } from "react-redux";
 import useSpinner from "../../../Common/Spinner/Spinner";
 
 //........... import modal
-import CustomModal from "./CustomModal";
+import CustomModal from "../Components/CustomModal";
 // modal children
-import PostModal from "./PostModal";
+import PostModal from "../Components/PostModal";
 
 const useStyles = makeStyles(dashboardStyle);
 

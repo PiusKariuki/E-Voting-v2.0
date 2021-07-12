@@ -23,10 +23,11 @@ import useApply from "../Hooks/useApply.js";
 
 const useStyles = makeStyles(dashboardStyle);
 const ApplyCandidacy = ({ tkn, history }) => {
-	const [applyCandidacy, load, txt, errMsg,electionId] = useApply();
+	const [applyCandidacy, load, txt, errMsg, electionId] = useApply();
 	const [manifesto, setManifesto] = useState("");
 	const [picture, setPicture] = useState("");
 	const [bgImage, setBgImage] = useState("");
+	const [key, setKey] = useState("");
 
 	const classes = useStyles();
 	const [renderSpinner] = useSpinner();
@@ -34,6 +35,7 @@ const ApplyCandidacy = ({ tkn, history }) => {
 	const handleChange = (e) => {
 		if (e.target.name === "manifesto") setManifesto(e.target.value);
 		else if (e.target.files[0]) {
+			setKey(Math.random().toString(36));
 			let newFile = window.URL.createObjectURL(e.target.files[0]);
 			setBgImage(newFile);
 			setPicture(e.target.files[0]);
@@ -42,27 +44,40 @@ const ApplyCandidacy = ({ tkn, history }) => {
 
 	const handleSubmit = () => {
 		applyCandidacy(tkn, picture, manifesto);
+		setBgImage("");
+		setPicture("");
+		setManifesto("");
 	};
 
 	const styles = {
-		img: {
-			background: `url(${bgImage}) no-repeat center center`,
-			backgroundSize: "cover",
-			maxWidth: "100%",
-			height: "300px",
-			marginBottom: "1rem",
+		bgGrid: {
 			justifyContent: "center",
 		},
+		img: {
+			maxWidth: "250px",
+			justifySelf: "center",
+			marginBottom: "1rem",
+		},
+		removeImgBtn: {
+			position: "absolute",
+			left: "35%",
+			top: "20%",
+		},
 		textarea: {
-			marginBottom: "1rem"
+			marginBottom: "1rem",
 		},
 		uploadBtn: {
-			marginBottom: "1rem"
+			margin: "1rem",
 		},
 		cardFooter: {
-			marginTop: "2rem"
-		}
+			marginTop: "2rem",
+		},
 	};
+
+	const handleRemove = () => {
+		setBgImage("");
+		setPicture("")
+	};;
 
 	return (
 		<Grid container>
@@ -77,7 +92,7 @@ const ApplyCandidacy = ({ tkn, history }) => {
 
 					<CardBody>
 						<Grid container>
-							<Grid item xs={12} sm={12} md={3} lg={3} style={styles.uploadBtn}>
+							<Grid item style={styles.uploadBtn}>
 								<Button
 									variant="contained"
 									color="primary"
@@ -86,6 +101,7 @@ const ApplyCandidacy = ({ tkn, history }) => {
 								>
 									Upload profile picture
 									<input
+									key={key}
 										type="file"
 										hidden
 										onChange={(e) => handleChange(e)}
@@ -100,14 +116,13 @@ const ApplyCandidacy = ({ tkn, history }) => {
 							</Grid>
 
 							{bgImage ? (
-								<Grid item xs={12} sm={12} md={7} lg={7} style={styles.img}>
+								<Grid item  styles={styles.bgGrid}>
+									<img src={bgImage} alt="" style={styles.img} />
 									<Button
+										style={styles.removeImgBtn}
 										variant="contained"
 										color="secondary"
-										onClick={() => {
-											setBgImage("");
-											setPicture("");
-										}}
+										onClick={() => handleRemove()}
 										size="small"
 									>
 										Remove
@@ -116,11 +131,16 @@ const ApplyCandidacy = ({ tkn, history }) => {
 							) : null}
 
 							<Grid item xs={12} sm={12} md={8} lg={8} style={styles.textarea}>
-								<FormControl fullWidth variant="filled" onSubmit={() => handleSubmit()}>
+								<FormControl
+									fullWidth
+									variant="filled"
+									onSubmit={() => handleSubmit()}
+								>
 									<TextField
 										id="filled-multiline-flexible"
 										label="Manifesto"
 										multiline
+										value={manifesto}
 										rows={10}
 										name="manifesto"
 										onChange={(e) => handleChange(e)}
@@ -150,8 +170,13 @@ const ApplyCandidacy = ({ tkn, history }) => {
 						</Grid>
 					</CardBody>
 					<CardFooter color="primary" style={styles.cardFooter}>
-						<Button variant="outlined" color="secondary"
-							onClick={() => history.push(`/voting/${electionId}`)}>Go back to Posts</Button>
+						<Button
+							variant="outlined"
+							color="secondary"
+							onClick={() => history.push(`/voting/${electionId}`)}
+						>
+							Go back to Posts
+						</Button>
 					</CardFooter>
 				</Card>
 			</Grid>

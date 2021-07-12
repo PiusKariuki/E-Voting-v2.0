@@ -2,6 +2,7 @@ import Axios from "axios";
 import { baseUrl } from "../../../../Common/Shared/Shared";
 import swal from "sweetalert";
 
+
 //actiontypes imports
 import * as ActionTypes from "../ActionTypes/ActionTypes";
 
@@ -76,3 +77,15 @@ export const emailFailed = (errmess) => ({
 export const loading = () => ({
   type: ActionTypes.LOADING,
 })
+
+
+export const LogoutThunk = () => (dispatch) => {
+  window.localStorage.clear();
+  window.location.reload();
+  dispatch(clearTkn);
+}
+
+export const clearTkn = () => ({
+  type: ActionTypes.LOGOUT,
+});
+

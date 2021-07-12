@@ -16,6 +16,8 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
+
+
 // useSidebar hook import for scrollbar navigation
 import useSidebar from "../../../Common/Hooks/useSidebar";
 
@@ -24,6 +26,7 @@ import useSidebar from "../../../Common/Hooks/useSidebar";
 const switchRoutes = (
   <Switch>
     {Routes.map((prop, key) => {
+      if (prop.layout === "/profile") {
         return (
           <Route
             path={(prop.path && prop.layout + prop.path) || prop.layout}
@@ -31,6 +34,8 @@ const switchRoutes = (
             key={key}
           />
         );
+      }
+      return null;
     })}
   </Switch>
 );
@@ -40,7 +45,7 @@ const useStyles = makeStyles(styles);
 
 
 // parent component
-function Voting({ ...rest }) {
+function Profile({ ...rest }) {
 
   // initiaize useSidebar hook
   const [perfectScrollbar] = useSidebar();
@@ -69,6 +74,7 @@ function Voting({ ...rest }) {
   React.useEffect(() => {
     perfectScrollbar(resizeFunction, mainPanel);
   }, [mainPanel]);
+
   return (
     <div className={classes.wrapper}>
       <Sidebar
@@ -101,6 +107,4 @@ function Voting({ ...rest }) {
   );
 }
 
-
-
-export default Voting;
+export default Profile;

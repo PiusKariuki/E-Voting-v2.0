@@ -9,6 +9,8 @@ import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import ApplyCandidacy from "../Views/ApplyCandidacy";
 
 
+
+
 export const Routes = [
   // apply candidacy 
   {

@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 const useLogin = () => {
   // state hooks for email and password

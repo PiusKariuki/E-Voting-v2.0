@@ -13,8 +13,6 @@ import Menu from "@material-ui/icons/Menu";
 import AdminNavbarLinks from "./AdminNavbarLinks.js";
 import Button from "../CustomButtons/Button.js";
 
-//hooks
-import { useRouteName } from "hooks";
 
 import styles from "assets/jss/material-dashboard-react/components/headerStyle.js";
 
@@ -22,7 +20,7 @@ const useStyles = makeStyles(styles);
 
 export default function Header(props) {
   const classes = useStyles();
-  const routeName = useRouteName();
+
   const { color } = props;
   const appBarClasses = classNames({
     [" " + classes[color]]: color,
@@ -32,9 +30,7 @@ export default function Header(props) {
       <Toolbar className={classes.container}>
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
-          <Button color="transparent" href="#" className={classes.title}>
-            {routeName}
-          </Button>
+    
         </div>
         <Hidden smDown implementation="css">
           <AdminNavbarLinks />
