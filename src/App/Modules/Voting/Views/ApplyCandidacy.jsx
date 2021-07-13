@@ -23,11 +23,18 @@ import useApply from "../Hooks/useApply.js";
 
 const useStyles = makeStyles(dashboardStyle);
 const ApplyCandidacy = ({ tkn, history }) => {
-	const [applyCandidacy, load, txt, errMsg, electionId] = useApply();
+	const [applyCandidacy, load, txt, errMsg, ] = useApply();
 	const [manifesto, setManifesto] = useState("");
 	const [picture, setPicture] = useState("");
 	const [bgImage, setBgImage] = useState("");
 	const [key, setKey] = useState("");
+
+	 
+  let pathname = history.location.pathname;
+  
+  let id = pathname.split('/')
+  let electionId = id[2];
+  let postId = id[4];
 
 	const classes = useStyles();
 	const [renderSpinner] = useSpinner();
@@ -43,7 +50,7 @@ const ApplyCandidacy = ({ tkn, history }) => {
 	};
 
 	const handleSubmit = () => {
-		applyCandidacy(tkn, picture, manifesto);
+		applyCandidacy(tkn, picture, manifesto,electionId, postId);
 		setBgImage("");
 		setPicture("");
 		setManifesto("");

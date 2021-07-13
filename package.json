@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "chartist": "0.10.1",
     "classnames": "2.3.1",
+    "express": "^4.17.1",
     "history": "5.0.0",
     "mdbreact": "^5.0.2",
     "perfect-scrollbar": "1.5.1",

@@ -28,6 +28,7 @@ const authRoutes = [
     name: "Profile",
     component: Profile,
     layout: "/profile",
+    onmenu: true
   }
 ];
 

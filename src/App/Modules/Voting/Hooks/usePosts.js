@@ -2,7 +2,6 @@ import  { useState } from "react";
 import { axios } from "../../../Common/Shared/Shared";
 import swal from "sweetalert";
 import useInterceptor from "./useInterceptor";
-import { useHistory } from "react-router";
 
 
 /*................fetch posts start..................*/
@@ -63,38 +62,6 @@ const usePosts = () => {
   */
   const [postContent, setPostContent] = useState([])
 
-  let history = useHistory();
-
-
-
-  const clickHandler = (btn, uuid) => {
-    let e = btn.target.innerHTML;
-    if (e === "view") {
-      setViewPost(true);
-      return posts.map((post) => {
-        if (post.uuid === uuid)
-          setPostContent(
-            [
-              post.name,
-              post.departments,
-              post.residence,
-              post.requirements,
-              post.description
-            ]);
-      });
-    }
-    else if (e === "vote")
-      setPostId(uuid)
-      else if(e === "apply candidacy"){ 
-        let pathname = history.location.pathname;
-        // ....the election idd is the last bit in the url
-        let id = pathname.substring(pathname.lastIndexOf("/") + 1);
-        history.push(`/voting/${id}/apply/${uuid}`)
-      }
-        
-
-  };
-  // end click handler................
 
   // map through posts and make an array of id for routing
   const mapPostIds = (posts) => {
@@ -111,7 +78,6 @@ const usePosts = () => {
     fetchPosts,
     posts,
     createData,
-    clickHandler,
     viewPost,
     setViewPost,
     postId,
@@ -119,6 +85,8 @@ const usePosts = () => {
     cols,
     mapPostIds,
     postUuids,
+    setPostContent,
+    setPostId
   ];
 };
 

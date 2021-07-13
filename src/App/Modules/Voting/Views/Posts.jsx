@@ -44,7 +44,6 @@ const Posts = ({ tkn, history }) => {
     fetchPosts,
     posts,
     createData,
-    clickHandler,
     viewPost,
     setViewPost,
     postId,
@@ -52,6 +51,8 @@ const Posts = ({ tkn, history }) => {
     cols,
     mapPostIds,
     postUuids, 
+		setPostContent,
+		setPostId
 	] = usePosts();
 
 	// ....redirect fn...............
@@ -70,7 +71,6 @@ const Posts = ({ tkn, history }) => {
 	React.useEffect(() => {
 		fetchPosts(tkn, id);
 		fetchElection(tkn);
-		
 	}, []);
 
 	React.useEffect(() => {
@@ -80,6 +80,38 @@ const Posts = ({ tkn, history }) => {
 	// spinner hook
 	const [renderSpinner] = useSpinner();
 
+
+	const clickHandler = (btn, uuid) => {
+    let e = btn.target.innerHTML;
+    if (e === "view") {
+      setViewPost(true);
+      return posts.map((post) => {
+        if (post.uuid === uuid)
+          setPostContent(
+            [
+              post.name,
+              post.departments,
+              post.residence,
+              post.requirements,
+              post.description
+            ]);
+      });
+    }
+    else if (e === "vote"){
+			setPostId(uuid)
+			history.push(`/voting/${id}/${uuid}`);
+		}
+      
+      else if(e === "apply candidacy"){ 
+        let pathname = history.location.pathname;
+        // ....the election idd is the last bit in the url
+        let id = pathname.substring(pathname.lastIndexOf("/") + 1);
+        history.push(`/voting/${id}/apply/${uuid}`)
+      }
+      
+  };
+  // end click handler................
+	
 	return (
 		<Grid container>
 			{/* spinner  */}

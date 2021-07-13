@@ -11,16 +11,10 @@ const useApply = () => {
   const [load, setLoad] = useState(false)
   const [errMsg, setErrMsg] = useState("");
 
-  let history = useHistory();  
-  let pathname = history.location.pathname;
-  
-  let id = pathname.split('/')
-  let electionId = id[2];
-  let postId = id[4];
 
   const [interceptor] = useInterceptor();
 
-  const applyCandidacy = (tkn, picture, manifesto) => {
+  const applyCandidacy = (tkn, picture, manifesto,electionId, postId) => {
     setLoad(true);
 
     const newAspirant = new FormData();
@@ -43,7 +37,7 @@ const useApply = () => {
   }
 
 
-  return [applyCandidacy, load, txt,errMsg,electionId];
+  return [applyCandidacy, load, txt,errMsg];
 }
 
 

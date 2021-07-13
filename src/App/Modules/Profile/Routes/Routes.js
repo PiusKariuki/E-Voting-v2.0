@@ -11,7 +11,7 @@ export const Routes = [
     component: ViewProfile,
     icon: PersonOutlineSharpIcon,
     layout: "/profile",
-    onmenu: false
+    onmenu: true
   },
   {
     path: "",

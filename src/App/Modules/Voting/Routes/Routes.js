@@ -7,6 +7,8 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import Aspirants from "../Views/Aspirants";
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import ApplyCandidacy from "../Views/ApplyCandidacy";
+import ViewProfile from "App/Modules/Profile/Views/ViewProfile";
+import PersonOutlineSharpIcon from '@material-ui/icons/PersonOutlineSharp';
 
 
 
@@ -46,6 +48,14 @@ export const Routes = [
     component: Election,
     icon: HowToVoteOutlinedIcon,
     layout: "/voting",
+    onmenu: true
+  },
+  {
+    path: "",
+    name: "User profile",
+    component: ViewProfile,
+    icon: PersonOutlineSharpIcon,
+    layout: "/profile",
     onmenu: true
   },
 ]

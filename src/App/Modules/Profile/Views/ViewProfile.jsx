@@ -31,7 +31,7 @@ const ViewProfile = ({tkn}) => {
 			<Grid item xs={12}>
 				{renderSpinner(load,text)}
 			</Grid>
-			<Grid item>
+			<Grid item xs={12}>
 				<Card>
 					<CardHeader color="primary">
 						<h4 className={classes.cardTitleWhite}>User profile</h4>
